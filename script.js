@@ -227,6 +227,7 @@ const UI = {
       <!-- ANÚNCIO (SINODAL TECH) -->
       <div class="ad-banner" style="background: var(--hero-bg); padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
         <div class="wrap">
+          <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 12px;">Anúncio</p>
           <a href="#" style="display:inline-block; border-radius:12px; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,0.3); transition: transform 0.2s; max-width:800px; width:100%;">
             <img src="ad.png" alt="Anúncio: Curso Técnico em Desenvolvimento de Sistemas - Sinodal Tech" style="display:block; width:100%; height:auto;">
           </a>
