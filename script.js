@@ -603,6 +603,8 @@ menuToggle?.addEventListener('click', () => {
   const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
   menuToggle.setAttribute('aria-expanded', !isExpanded);
   siteHeader.classList.toggle('nav-open', !isExpanded);
+  const mobileNav = document.getElementById('mobile-nav');
+  if (mobileNav) mobileNav.hidden = isExpanded;
 });
 
 // Fechar menu mobile ao clicar em um link
@@ -610,6 +612,8 @@ document.querySelectorAll('nav a').forEach(link => {
   link.addEventListener('click', () => {
     menuToggle?.setAttribute('aria-expanded', 'false');
     siteHeader?.classList.remove('nav-open');
+    const mobileNav = document.getElementById('mobile-nav');
+    if (mobileNav) mobileNav.hidden = true;
   });
 });
 
@@ -630,6 +634,7 @@ const librasToggle = document.querySelector('#libras');
 accessToggle?.addEventListener('click', () => {
   const isExpanded = accessToggle.getAttribute('aria-expanded') === 'true';
   accessToggle.setAttribute('aria-expanded', !isExpanded);
+  if (accessPanel) accessPanel.hidden = isExpanded;
   accessPanel?.classList.toggle('active', !isExpanded);
 });
 
