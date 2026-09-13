@@ -41,6 +41,53 @@
 }
 
 /* ============================================================
+   Alto Contraste (Acessibilidade)
+   ============================================================ */
+body.high-contrast {
+  --green:       #ffff00;
+  --green-dark:  #aaaa00;
+  --green-light: #ffff00;
+  --green-soft:  #111111;
+  --ink:         #ffffff;
+  --ink-2:       #eeeeee;
+  --muted:       #cccccc;
+  --muted-light: #aaaaaa;
+  --line:        #ffff00;
+  --paper:       #000000;
+  --canvas:      #000000;
+  --hero-bg:     #000000;
+  --violet:      #ff00ff;
+  --violet-soft: #220022;
+  
+  --shadow-sm:   none;
+  --shadow-md:   none;
+  --shadow-lg:   none;
+  --shadow-xl:   none;
+}
+body.high-contrast .btn-primary {
+  background: var(--green) !important;
+  color: #000 !important;
+  border: 2px solid var(--green) !important;
+  font-weight: 800;
+}
+body.high-contrast .btn-outline {
+  border: 2px solid var(--green) !important;
+  color: var(--green) !important;
+}
+body.high-contrast .btn-white {
+  background: #fff !important;
+  color: #000 !important;
+  border: 2px solid #fff !important;
+}
+body.high-contrast img, 
+body.high-contrast .hero-visual {
+  filter: contrast(120%) grayscale(100%);
+}
+body.high-contrast * {
+  text-shadow: none !important;
+}
+
+/* ============================================================
    Reset e base
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
