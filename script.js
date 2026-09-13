@@ -62,7 +62,7 @@ function initials(name) { return name.split(' ').filter(Boolean).slice(0, 2).map
 
 function notify(message) {
   const box = document.querySelector('#notice');
-  if(!box) return;
+  if (!box) return;
   box.textContent = message;
   box.hidden = false;
   clearTimeout(notify.timer);
@@ -162,7 +162,7 @@ const UI = {
           <div class="audience-grid">
             <div class="audience-card for-companies reveal">
               <div class="audience-tag">Para empresas</div>
-              <h3>Contrate sem precisar de RH</h3>
+              <h3>Contrate sem Burocracia</h3>
               <p>Pequenas e médias empresas têm dificuldade de contratar porque não têm equipe especializada. A Elo resolve isso com IA.</p>
               <ul class="audience-features"><li>Triagem automática de candidatos por IA</li><li>Automação de burocracias do processo seletivo</li><li>Candidatos compatíveis em minutos</li><li>Sem jargão técnico de RH</li></ul>
               <a class="btn btn-white audience-cta" href="#empresa">Cadastrar minha empresa <span aria-hidden="true">→</span></a>
@@ -253,15 +253,15 @@ const UI = {
     const data = await MockAPI.getProfile(isCompany ? 'company' : 'candidate') || {};
     const isEdit = Object.keys(data).length > 0;
 
-    const field = (label, name, val, type='text', req=true) => `
+    const field = (label, name, val, type = 'text', req = true) => `
       <label>${label}${req ? ' <span style="color:#c53030">*</span>' : ''}
-        <input name="${name}" type="${type}" value="${esc(val)}" ${req?'required':''} maxlength="180">
+        <input name="${name}" type="${type}" value="${esc(val)}" ${req ? 'required' : ''} maxlength="180">
       </label>`;
 
     const sel = (label, name, opts, val) => `
       <label>${label} <span style="color:#c53030">*</span>
-        <select name="${name}" required><option value="" disabled ${!val?'selected':''}>Selecione…</option>
-        ${opts.map(v => `<option ${val===v?'selected':''}>${esc(v)}</option>`).join('')}</select>
+        <select name="${name}" required><option value="" disabled ${!val ? 'selected' : ''}>Selecione…</option>
+        ${opts.map(v => `<option ${val === v ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select>
       </label>`;
 
     return `
@@ -306,7 +306,7 @@ const UI = {
             <fieldset class="full">
               <legend>${isCompany ? 'Habilidades buscadas na vaga' : 'Suas habilidades'} <span style="color:#c53030">*</span></legend>
               <div class="check-grid" style="margin-top:12px;">
-                ${skills.map(s => `<label><input type="checkbox" name="skills" value="${s}" ${(data.skills||[]).includes(s)?'checked':''}>${s}</label>`).join('')}
+                ${skills.map(s => `<label><input type="checkbox" name="skills" value="${s}" ${(data.skills || []).includes(s) ? 'checked' : ''}>${s}</label>`).join('')}
               </div>
               <p id="skill-error" class="form-error"></p>
             </fieldset>
@@ -401,7 +401,7 @@ const UI = {
    ============================================================ */
 async function loadMatches() {
   const resultsArea = document.querySelector('#results-area');
-  if(!resultsArea) return;
+  if (!resultsArea) return;
 
   const min = Number(document.querySelector('#minimum').value || 1);
   const term = document.querySelector('#search').value || '';
@@ -424,7 +424,7 @@ async function loadMatches() {
   const matches = await MockAPI.calculateMatches(company, min, term);
 
   // 3. Renderiza os resultados finais
-  if(matches.length === 0) {
+  if (matches.length === 0) {
     resultsArea.innerHTML = `<div class="empty"><h3>Nenhum perfil compatível</h3><p>Tente ajustar os filtros ou reduzir a afinidade mínima.</p></div>`;
     return;
   }
@@ -456,10 +456,10 @@ async function route() {
   const rawPage = location.hash.slice(1) || 'home';
   const homeSections = ['home', 'sobre', 'como-funciona'];
   const page = homeSections.includes(rawPage) ? 'home' : rawPage;
-  
+
   // Define o que será renderizado
   let content = '';
-  switch(page) {
+  switch (page) {
     case 'home': content = UI.home(); break;
     case 'candidato': content = await UI.registration(false); break;
     case 'empresa': content = await UI.registration(true); break;
@@ -485,7 +485,7 @@ async function route() {
     loadMatches(); // Dispara o loader e a requisição
     const searchInput = document.querySelector('#search');
     const minSelect = document.querySelector('#minimum');
-    
+
     // Evita recarregar a IA a cada tecla; usa debounce
     let debounceTimer;
     searchInput?.addEventListener('input', () => {
@@ -551,7 +551,7 @@ main.addEventListener('submit', async event => {
 
   submitBtn.classList.remove('is-loading');
   notify('Perfil salvo com sucesso! ✓');
-  
+
   location.hash = kind === 'candidate' ? 'painel' : 'matches';
 });
 
@@ -561,7 +561,7 @@ main.addEventListener('submit', async event => {
 main.addEventListener('click', async event => {
   const btn = event.target.closest('[data-profile]');
   if (!btn) return;
-  
+
   const id = btn.dataset.profile;
   const localCand = await MockAPI.getProfile('candidate');
   const allCandidates = [...demoCandidates, ...(localCand ? [localCand] : [])];
@@ -592,7 +592,83 @@ document.querySelector('#close-dialog')?.addEventListener('click', () => {
 });
 
 /* ============================================================
-   INICIALIZAÇÃO BÁSICA
+   INICIALIZAÇÃO BÁSICA E EVENTOS GLOBAIS
    ============================================================ */
+
+// 1. Menu Mobile
+const menuToggle = document.querySelector('#menu-toggle');
+const siteHeader = document.querySelector('#site-header');
+
+menuToggle?.addEventListener('click', () => {
+  const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+  menuToggle.setAttribute('aria-expanded', !isExpanded);
+  siteHeader.classList.toggle('nav-open', !isExpanded);
+});
+
+// Fechar menu mobile ao clicar em um link
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', () => {
+    menuToggle?.setAttribute('aria-expanded', 'false');
+    siteHeader?.classList.remove('nav-open');
+  });
+});
+
+// 2. Efeito de Scroll no Header
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 20) {
+    siteHeader?.classList.add('scrolled');
+  } else {
+    siteHeader?.classList.remove('scrolled');
+  }
+}, { passive: true });
+
+// 3. Acessibilidade (Painel e Botões)
+const accessToggle = document.querySelector('#access-toggle');
+const accessPanel = document.querySelector('#access-panel');
+const librasToggle = document.querySelector('#libras');
+
+accessToggle?.addEventListener('click', () => {
+  const isExpanded = accessToggle.getAttribute('aria-expanded') === 'true';
+  accessToggle.setAttribute('aria-expanded', !isExpanded);
+  accessPanel?.classList.toggle('active', !isExpanded);
+});
+
+// Botões de ação do painel de acessibilidade
+let fontSize = 100;
+document.querySelector('#font-up')?.addEventListener('click', () => {
+  if (fontSize < 150) fontSize += 10;
+  document.documentElement.style.fontSize = `${fontSize}%`;
+});
+
+document.querySelector('#font-down')?.addEventListener('click', () => {
+  if (fontSize > 80) fontSize -= 10;
+  document.documentElement.style.fontSize = `${fontSize}%`;
+});
+
+document.querySelector('#contrast')?.addEventListener('click', () => {
+  document.body.classList.toggle('high-contrast');
+});
+
+document.querySelector('#reset-access')?.addEventListener('click', () => {
+  fontSize = 100;
+  document.documentElement.style.fontSize = '100%';
+  document.body.classList.remove('high-contrast');
+});
+
+// Libras simulado
+librasToggle?.addEventListener('click', () => {
+  librasToggle.classList.toggle('active');
+  const isActive = librasToggle.classList.contains('active');
+  librasToggle.setAttribute('aria-label', isActive ? 'Desativar Libras' : 'Ativar Libras');
+  
+  // Como é apenas visual, mostraremos uma notificação no protótipo
+  if(isActive) {
+    notify("VLibras (tradutor) ativado no protótipo.");
+  } else {
+    notify("VLibras desativado.");
+  }
+});
+
+// 4. Roteamento SPA
 window.addEventListener('hashchange', route);
 route();
