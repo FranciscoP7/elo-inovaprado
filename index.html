@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Elo conecta pequenas e médias empresas a candidatos em busca do primeiro emprego, usando IA para facilitar contratações e democratizar oportunidades.">
+  <meta property="og:title" content="Elo — Contratação inteligente para quem o mercado esquece">
+  <meta property="og:description" content="Plataforma de emprego com IA para PMEs e candidatos em início de carreira.">
+  <meta property="og:type" content="website">
+  <title>Elo — Onde pequenas empresas encontram grandes pessoas</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23007853'/%3E%3Ctext x='10' y='30' font-size='32' fill='white'%3Ee%3C/text%3E%3C/svg%3E"
+  >
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Pular para conteúdo -->
+  <a class="skip" href="#main">Pular para o conteúdo principal</a>
+
+  <!-- Cabeçalho -->
+  <header class="header" id="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="#home" aria-label="Elo — página inicial">
+        <img src="logo.png" alt="Logo" height="32" style="display: block; margin-right: 8px;">elo<span class="logo-dot">.</span>
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="#home" id="nav-home">Início</a>
+        <a href="#como-funciona" id="nav-como">Como funciona</a>
+        <a href="#candidato" id="nav-cand">Para candidatos</a>
+        <a href="#empresa" id="nav-emp">Para empresas</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-ghost" href="#candidato">Entrar</a>
+        <a class="btn btn-primary" href="#empresa">Cadastrar empresa</a>
+      </div>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav" id="menu-toggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Menu mobile -->
+    <div class="mobile-nav" id="mobile-nav" hidden>
+      <nav aria-label="Navegação mobile">
+        <a href="#home">Início</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#candidato">Para candidatos</a>
+        <a href="#empresa">Para empresas</a>
+        <a class="btn btn-primary" href="#empresa">Cadastrar empresa</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Conteúdo principal (SPA) -->
+  <main id="main" tabindex="-1"></main>
+
+  <!-- Rodapé -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="#home">elo<span class="logo-dot">.</span></a>
+        <p>Onde pequenas empresas encontram grandes pessoas.</p>
+      </div>
+      <nav class="footer-links" aria-label="Links do rodapé">
+        <div>
+          <strong>Plataforma</strong>
+          <a href="#candidato">Cadastrar candidato</a>
+          <a href="#empresa">Cadastrar empresa</a>
+          <a href="#painel">Meu perfil</a>
+          <a href="#matches">Painel da empresa</a>
+        </div>
+        <div>
+          <strong>Sobre</strong>
+          <a href="#home">Nossa missão</a>
+          <a href="#como-funciona">Como funciona</a>
+        </div>
+      </nav>
+      <div class="footer-bottom">
+        <span>© 2026 Elo · Protótipo local</span>
+        <span>Dados de demonstração · Sem envio real de informações</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast de notificações -->
+  <div id="notice" role="status" class="toast" hidden></div>
+
+  <!-- Dialog de perfil -->
+  <dialog id="profile-dialog" aria-labelledby="dialog-title">
+    <button id="close-dialog" class="close" aria-label="Fechar perfil">×</button>
+    <div id="dialog-content"></div>
+  </dialog>
+
+  <!-- Plugin VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+
+  <!-- Botões flutuantes de acessibilidade -->
+  <div id="access-float" aria-label="Ferramentas de acessibilidade">
+    <div id="access-panel" class="access-panel" hidden aria-hidden="true">
+      <button id="font-down" aria-label="Diminuir fonte" class="access-btn">
+        <span aria-hidden="true">A−</span>
+      </button>
+      <button id="font-up" aria-label="Aumentar fonte" class="access-btn">
+        <span aria-hidden="true">A+</span>
+      </button>
+      <button id="contrast" aria-pressed="false" aria-label="Alternar alto contraste" class="access-btn">
+        <span aria-hidden="true">◐</span>
+        <span class="access-btn-label">Contraste</span>
+      </button>
+      <button id="reset-access" aria-label="Restaurar preferências" class="access-btn">
+        <span aria-hidden="true">↺</span>
+        <span class="access-btn-label">Restaurar</span>
+      </button>
+    </div>
+    <div class="access-actions">
+      <button id="libras" class="access-fab access-fab--libras" aria-label="Ativar Libras">
+        <span aria-hidden="true">👐</span>
+        <span class="access-fab-label">Libras</span>
+      </button>
+      <button
+        id="access-toggle"
+        class="access-fab access-fab--main"
+        aria-expanded="false"
+        aria-controls="access-panel"
+        aria-label="Abrir ferramentas de acessibilidade"
+      >
+        <span aria-hidden="true">⚙</span>
+        <span class="access-fab-label">Acessibilidade</span>
+      </button>
+    </div>
+  </div>
+
+  <noscript>Ative o JavaScript para acessar a plataforma Elo.</noscript>
+</body>
+</html>
